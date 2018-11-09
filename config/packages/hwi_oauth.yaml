@@ -1,0 +1,14 @@
+hwi_oauth:
+    # list of names of the firewalls in which this bundle is active, this setting MUST be set
+    firewall_names: [secured_area]
+
+    # https://github.com/hwi/HWIOAuthBundle/blob/master/Resources/doc/2-configuring_resource_owners.md
+    resource_owners:
+        vkontakte:
+            type:                vkontakte
+            client_id:           '%env(VK_CLIENT_ID)%'
+            client_secret:       '%env(VK_CLIENT_SECRET)%'
+            scope:               'offline,wall'
+#            options:
+#                display: popup
+#                csrf: true

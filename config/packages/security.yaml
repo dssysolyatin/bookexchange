@@ -1,0 +1,30 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    providers:
+        hwi:
+            id: app.oauth_aware.user_provider.service
+
+    firewalls:
+        secured_area:
+            pattern: ^/server\/(login|connect|token)
+            anonymous: ~
+            oauth:
+                check_path: /server/login_check
+                resource_owners:
+                    vkontakte: "/server/login/check-vkontakte"
+                login_path: /server/login
+                use_forward: true
+                failure_path: /server/login
+                default_target_path: /server/token
+                target_path_parameter: client_url
+                oauth_user_provider:
+                    service: app.oauth_aware.user_provider.service
+        api:
+            pattern:   ^/server/api
+            stateless: true
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+    access_control:
+        - { path: ^/server/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

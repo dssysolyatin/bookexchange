@@ -1,0 +1,2 @@
+vkontakte_login:
+    path: /server/login/check-vkontakte
