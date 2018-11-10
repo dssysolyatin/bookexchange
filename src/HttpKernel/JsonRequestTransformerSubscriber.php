@@ -5,6 +5,10 @@ namespace App\HttpKernel;
 
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
+use Symfony\Component\HttpKernel\KernelEvents;
 
 class JsonRequestTransformerSubscriber implements EventSubscriberInterface
 {
@@ -30,7 +34,63 @@ class JsonRequestTransformerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-
+            KernelEvents::REQUEST => 'onKernelRequest'
         ];
+    }
+
+    /**
+     * @param GetResponseEvent $event
+     */
+    public function onKernelRequest(GetResponseEvent $event)
+    {
+        $request = $event->getRequest();
+
+        if (!$this->isJsonRequest($request)) {
+            return;
+        }
+
+        $content = $request->getContent();
+
+        if (empty($content)) {
+            return;
+        }
+
+        if (!$this->transformJsonBody($request)) {
+            $response = Response::create('Unable to parse request.', Response::HTTP_BAD_REQUEST);
+
+            $event->setResponse($response);
+        }
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    private function isJsonRequest(Request $request)
+    {
+        return 'json' === $request->getContentType();
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return bool
+     */
+    private function transformJsonBody(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            return false;
+        }
+
+        if (null === $data) {
+            return true;
+        }
+
+        $request->request->replace($data);
+
+        return true;
     }
 }

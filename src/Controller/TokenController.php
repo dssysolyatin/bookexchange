@@ -40,7 +40,7 @@ class TokenController extends Controller
             $redirect = 'http://app.bookex.ru';
         } else {
             $cookieDomain = null;
-            $redirect = null;
+            $redirect = '/';
         }
 
         $response = new RedirectResponse($redirect);
@@ -72,7 +72,8 @@ class TokenController extends Controller
                 'fields' => [
                     'first_name',
                     'last_name',
-                    'photo_medium'
+                    'photo_medium',
+                    'domain'
                 ]
             ]);
         } catch (VKApiException $e) {

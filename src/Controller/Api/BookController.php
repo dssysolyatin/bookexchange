@@ -4,19 +4,21 @@ namespace App\Controller\Api;
 
 use App\Book\Manager;
 use App\DTO\Request\InsertBookCategoryDTO;
+use App\Exception\DuplicationUserCategoryBookException;
+use App\Exception\GoogleNotFoundBookException;
 use App\Form\Type\Book\InsertBookCategoryType;
 use Google_Service_Books;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route("/api/books")
  */
-class BookController extends Controller
+class BookController extends ApiController
 {
     /**
      * @Route("/search")
@@ -47,19 +49,33 @@ class BookController extends Controller
      * @param ValidatorInterface $validator
      * @return Response
      */
-    public function create(Manager $bookManager, Request $request, ValidatorInterface $validator)
+    public function create(Manager $bookManager, Request $request, UserInterface $user)
     {
         $form = $this->createForm(InsertBookCategoryType::class, new InsertBookCategoryDTO());
 
         $form->handleRequest($request);
 
-        if (false === $form->isSubmitted() && false === $form->isValid()) {
-            return new JsonResponse($form->getErrors());
+        if (false === $form->isSubmitted() || false === $form->isValid()) {
+            return  $this->errorResponse($form);
         }
 
-        $book = $bookManager->createOrGetBookByVolumeId($request->request->get('volume_id'));
+        $dto = $form->getData();
 
-        return new JsonResponse(\App\DTO\Response\Book::createByBookEntity($book));
+        try {
+            $category = $bookManager->create($user, $dto->categoryId, $dto->bookId);
+        } catch (DuplicationUserCategoryBookException $e) {
+            return new JsonResponse(
+                ['global' => 'The user has added this book yet.'],
+                Response::HTTP_BAD_REQUEST
+            );
+        } catch (GoogleNotFoundBookException $e) {
+            return new JsonResponse(
+                ['bookId' => 'The book with current id doesn\'t find in Google Books.'],
+                Response::HTTP_BAD_REQUEST
+            );
+        }
+
+        return new JsonResponse($category);
     }
 
 }

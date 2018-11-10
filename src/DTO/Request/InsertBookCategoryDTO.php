@@ -3,6 +3,7 @@
 
 namespace App\DTO\Request;
 
+use App\Entity\Category;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class InsertBookCategoryDTO

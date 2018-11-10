@@ -24,6 +24,12 @@ class User implements UserInterface
      * @ORM\Column(type="string", length=255)
      * @Groups({"user"})
      */
+    private $vkDomain;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"user"})
+     */
     private $avatarUrl;
 
     /**
@@ -197,5 +203,21 @@ class User implements UserInterface
         // TODO: Implement eraseCredentials() method.
     }
 
+    /**
+     * @return mixed
+     */
+    public function getVkDomain()
+    {
+        return $this->vkDomain;
+    }
 
+    /**
+     * @param mixed $vkDomain
+     */
+    public function setVkDomain($vkDomain): self
+    {
+        $this->vkDomain = $vkDomain;
+
+        return $this;
+    }
 }

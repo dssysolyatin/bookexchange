@@ -44,6 +44,7 @@ class Manager
             ->setFirstname($data['first_name'])
             ->setLastname($data['last_name'])
             ->setId($data['id'])
+            ->setVkDomain($data['domain'])
         ;
 
         $this->em->persist($user);
