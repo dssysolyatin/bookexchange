@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Entity;
-
 
 class Category
 {
@@ -13,6 +11,6 @@ class Category
     const SUPPORT_TYPES = [
         self::FREE,
         self::MY,
-        self::READING
+        self::READING,
     ];
 }

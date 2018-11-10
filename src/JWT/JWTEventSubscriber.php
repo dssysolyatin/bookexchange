@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\JWT;
-
 
 use HWI\Bundle\OAuthBundle\Security\Core\Authentication\Token\OAuthToken;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\JWTAuthenticatedEvent;
@@ -13,7 +11,6 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class JWTEventSubscriber implements EventSubscriberInterface
 {
-
     /**
      * @var TokenStorageInterface
      */
@@ -21,6 +18,7 @@ class JWTEventSubscriber implements EventSubscriberInterface
 
     /**
      * JWTEventSubscriber constructor.
+     *
      * @param TokenStorageInterface $tokenStorage
      */
     public function __construct(TokenStorageInterface $tokenStorage)
@@ -50,11 +48,11 @@ class JWTEventSubscriber implements EventSubscriberInterface
     {
         return [
             Events::JWT_CREATED => [
-                ['onJWTCreated', 0]
+                ['onJWTCreated', 0],
             ],
             Events::JWT_AUTHENTICATED => [
-                ['onJWTAuthenticated', 0]
-            ]
+                ['onJWTAuthenticated', 0],
+            ],
         ];
     }
 

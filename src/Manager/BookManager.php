@@ -1,7 +1,6 @@
 <?php
 
-
-namespace App\Book;
+namespace App\Manager;
 
 use App\DTO\Response\BookList;
 use App\Entity\Book;
@@ -17,7 +16,7 @@ use Google_Service_Books_Volume;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
-class Manager
+class BookManager
 {
     /**
      * @var \Google_Service_Books
@@ -38,9 +37,10 @@ class Manager
 
     /**
      * Manager constructor.
-     * @param \Google_Service_Books $gBookService
-     * @param BookRepository $bookRepository
-     * @param ObjectNormalizer $objectNormalizer
+     *
+     * @param \Google_Service_Books  $gBookService
+     * @param BookRepository         $bookRepository
+     * @param ObjectNormalizer       $objectNormalizer
      * @param EntityManagerInterface $em
      */
     public function __construct(
@@ -56,9 +56,10 @@ class Manager
     }
 
     /**
-     * @param User $user
-     * @param int $categoryId
+     * @param User   $user
+     * @param int    $categoryId
      * @param string $bookId
+     *
      * @return UserBookCategory
      */
     public function create(User $user, int $categoryId, string $bookId)
@@ -68,7 +69,6 @@ class Manager
         } catch (\Google_Service_Exception $e) {
             throw new GoogleNotFoundBookException();
         }
-
 
         $userBookCategory = (new UserBookCategory())
             ->setUserId($user->getId())
@@ -82,7 +82,6 @@ class Manager
         } catch (UniqueConstraintViolationException $e) {
             throw new DuplicationUserCategoryBookException();
         }
-
 
         return $userBookCategory;
     }
@@ -115,7 +114,7 @@ class Manager
         $booksList->totalItems = $volumes->getTotalItems();
 
         foreach ($volumes->getItems() as $volume) {
-            /**
+            /*
              * @var Google_Service_Books_Volume $volume
              */
             $booksList->books[] = \App\DTO\Response\Book::createByVolume($volume);

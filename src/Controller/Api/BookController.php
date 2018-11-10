@@ -2,7 +2,7 @@
 
 namespace App\Controller\Api;
 
-use App\Book\Manager;
+use App\Manager\BookManager;
 use App\DTO\Request\InsertBookCategoryDTO;
 use App\Exception\DuplicationUserCategoryBookException;
 use App\Exception\GoogleNotFoundBookException;
@@ -25,11 +25,13 @@ class BookController extends ApiController
 {
     /**
      * @Route("/search")
-     * @param Request $request
+     *
+     * @param Request              $request
      * @param Google_Service_Books $googleBookService
+     *
      * @return JsonResponse
      */
-    public function search(Request $request, Manager $bookManager)
+    public function search(Request $request, BookManager $bookManager)
     {
         $searchString = $request->query->get('q');
 
@@ -40,17 +42,20 @@ class BookController extends ApiController
         return new JsonResponse(
             $bookManager->getBooksFromGoogleBook($searchString, [
                 'maxResults' => 20,
-                'startIndex' => $request->query->get('start_index', 0)
+                'startIndex' => $request->query->get('start_index', 0),
             ])
         );
     }
 
     /**
      * @Route("/{bookId}/users")
-     * @param string $bookId
-     * @param UserRepository $userRepository
+     *
+     * @param string              $bookId
+     * @param UserRepository      $userRepository
      * @param SerializerInterface $serializer
+     *
      * @return JsonResponse|void
+     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function freeBookUsers(string $bookId, UserRepository $userRepository, SerializerInterface $serializer)
@@ -65,8 +70,10 @@ class BookController extends ApiController
 
     /**
      * @Route("/free_book_search")
-     * @param Request $request
+     *
+     * @param Request        $request
      * @param BookRepository $bookRepository
+     *
      * @return JsonResponse|void
      */
     public function freeBookSearch(Request $request, BookRepository $bookRepository, UserInterface $user)
@@ -80,9 +87,9 @@ class BookController extends ApiController
         return new JsonResponse($bookRepository->searchFreeBooks($searchString, $user->getId()));
     }
 
-
     /**
      * @Route("", methods={"GET"})
+     *
      * @param UserInterface $user
      */
     public function index(UserInterface $user, BookRepository $bookRepository)
@@ -92,12 +99,14 @@ class BookController extends ApiController
 
     /**
      * @Route("/link", methods={"POST"})
-     * @param Manager $bookManager
-     * @param Request $request
+     *
+     * @param BookManager        $bookManager
+     * @param Request            $request
      * @param ValidatorInterface $validator
+     *
      * @return Response
      */
-    public function link(Manager $bookManager, Request $request, UserInterface $user)
+    public function link(BookManager $bookManager, Request $request, UserInterface $user)
     {
         $form = $this->createForm(InsertBookCategoryType::class, new InsertBookCategoryDTO());
 
@@ -125,5 +134,4 @@ class BookController extends ApiController
 
         return new JsonResponse($category);
     }
-
 }

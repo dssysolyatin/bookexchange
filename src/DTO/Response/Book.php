@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\DTO\Response;
-
 
 use Google_Service_Books_Volume;
 

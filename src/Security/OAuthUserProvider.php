@@ -3,7 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
-use App\User\Manager;
+use App\Manager\UserManager;
 use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
@@ -14,16 +14,16 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 class OAuthUserProvider implements UserProviderInterface, AccountConnectorInterface, OAuthAwareUserProviderInterface
 {
     /**
-     * @var Manager
+     * @var UserManager
      */
     private $userManager;
 
-
     /**
      * OAuthUserProvider constructor.
-     * @param Manager $userManager
+     *
+     * @param UserManager $userManager
      */
-    public function __construct(Manager $userManager)
+    public function __construct(UserManager $userManager)
     {
         $this->userManager = $userManager;
     }
@@ -52,12 +52,11 @@ class OAuthUserProvider implements UserProviderInterface, AccountConnectorInterf
     /**
      * Connects the response to the user object.
      *
-     * @param UserInterface $user The user object
+     * @param UserInterface         $user     The user object
      * @param UserResponseInterface $response The oauth response
      */
     public function connect(UserInterface $user, UserResponseInterface $response)
     {
-
     }
 
     /**

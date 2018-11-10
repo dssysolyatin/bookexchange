@@ -10,15 +10,14 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20181109191159 extends AbstractMigration
+final class Version20181110182113 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('CREATE SEQUENCE user_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE "user" (id INT NOT NULL, avatar_url VARCHAR(255) NOT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE "book_transaction" (requester_id INT NOT NULL, keeper_id INT NOT NULL, book_id VARCHAR(24) NOT NULL, PRIMARY KEY(requester_id, keeper_id, book_id))');
     }
 
     public function down(Schema $schema): void
@@ -26,7 +25,7 @@ final class Version20181109191159 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('postgresql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'postgresql\'.');
 
-        $this->addSql('DROP SEQUENCE user_id_seq CASCADE');
-        $this->addSql('DROP TABLE "user"');
+        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('DROP TABLE "book_transaction"');
     }
 }

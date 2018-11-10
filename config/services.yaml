@@ -37,24 +37,21 @@ services:
     Google_Service_Books:
         class: Google_Service_Books
 
-    App\Repository\UserRepository: "@app.repository.user"
-    App\Repository\BookRepository: "@app.repository.book"
+    App\Repository\UserRepository:
+        tags: ['doctrine.repository_service']
+    App\Repository\BookRepository:
+        tags: ['doctrine.repository_service']
+    App\Repository\UserBookCategoryRepository:
+        tags: ['doctrine.repository_service']
+    App\Repository\BookTransactionRepository:
+        tags: ['doctrine.repository_service']
+
     Doctrine\ORM\EntityManager: "@doctrine.orm.entity_manager"
 
     app.repository.user:
         class: App\Repository\UserRepository
         arguments:
             - "@doctrine"
-
-    app.repository.book:
-        class: App\Repository\BookRepository
-        arguments:
-            - "@doctrine"
-
-    App\User\Manager:
-        arguments:
-            - "@doctrine.orm.entity_manager"
-            - "@app.repository.user"
 
     app.oauth_aware.user_provider.service:
         class: App\Security\OAuthUserProvider

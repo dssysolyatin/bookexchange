@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Controller\Api;
-
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
@@ -20,7 +18,6 @@ class ApiController extends Controller
         }
 
         foreach ($form as $child) {
-
             if ($child->isValid()) {
                 continue;
             }

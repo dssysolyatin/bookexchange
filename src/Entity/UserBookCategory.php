@@ -1,12 +1,11 @@
 <?php
 
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\UserBookCategoryRepository")
  * @ORM\Table(name="user_book_category")
  */
 class UserBookCategory

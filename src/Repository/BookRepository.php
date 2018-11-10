@@ -1,11 +1,9 @@
 <?php
 
-
 namespace App\Repository;
 
 use App\BestLanguageDetector;
 use App\Entity\Book;
-use App\Func;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -25,24 +23,25 @@ class BookRepository extends ServiceEntityRepository
 
     /**
      * @param int $userId
+     *
      * @return array
+     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function getUserBooks(int $userId)
     {
         $books = $this->_em->getConnection()->executeQuery(
-            "SELECT * FROM user_book_category ubc INNER JOIN book i ON i.id = ubc.book_id WHERE user_id = ?",
+            'SELECT * FROM user_book_category ubc INNER JOIN book i ON i.id = ubc.book_id WHERE user_id = ?',
             [$userId],
             [\PDO::PARAM_INT]
         )->fetchAll();
 
-
         $booksResult = [];
         foreach ($books as $book) {
-            $booksResult[] =  array_merge(json_decode($book['info'], true), [
+            $booksResult[] = array_merge(json_decode($book['info'], true), [
                 'userId' => $book['user_id'],
                 'bookId' => $book['book_id'],
-                'categoryId' => $book['category_id']
+                'categoryId' => $book['category_id'],
             ]);
         }
 
@@ -51,7 +50,9 @@ class BookRepository extends ServiceEntityRepository
 
     /**
      * @param string $text
+     *
      * @return array
+     *
      * @throws \Doctrine\DBAL\DBALException
      */
     public function searchFreeBooks(string $text, int $excludeUserId)
@@ -70,7 +71,6 @@ class BookRepository extends ServiceEntityRepository
             [\PDO::PARAM_INT, \PDO::PARAM_STR, \PDO::PARAM_STR, \PDO::PARAM_STR]
         )->fetchAll();
 
-
         $booksResult = [];
         foreach ($books as $book) {
             $booksResult[] = array_merge(
@@ -80,6 +80,5 @@ class BookRepository extends ServiceEntityRepository
         }
 
         return $booksResult;
-
     }
 }

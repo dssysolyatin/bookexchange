@@ -50,7 +50,6 @@ class User implements UserInterface
      */
     private $createdAt;
 
-
     private $vkToken;
 
     /**
@@ -136,7 +135,6 @@ class User implements UserInterface
 
         return $this;
     }
-
 
     /**
      * Returns the roles granted to the user.

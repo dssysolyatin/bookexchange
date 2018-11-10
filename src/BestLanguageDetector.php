@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App;
-
 
 use LanguageDetection\Language;
 
@@ -10,7 +8,7 @@ class BestLanguageDetector
 {
     const MAPPING = [
         'en' => 'english',
-        'ru' => 'russian'
+        'ru' => 'russian',
     ];
     /**
      * @var Language
@@ -19,6 +17,7 @@ class BestLanguageDetector
 
     /**
      * BestLanguageDetector constructor.
+     *
      * @param Language $language
      */
     public function __construct(Language $language = null)
@@ -28,6 +27,7 @@ class BestLanguageDetector
 
     /**
      * @param string $text
+     *
      * @return string
      */
     public function detect(string $text): string
@@ -43,7 +43,6 @@ class BestLanguageDetector
                 $bestRating = $rating;
             }
         }
-
 
         return self::MAPPING[$bestLang];
     }

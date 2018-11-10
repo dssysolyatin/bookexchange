@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\DTO\Request;
 
 use App\Entity\Category;

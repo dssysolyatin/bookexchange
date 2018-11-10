@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\HttpKernel;
-
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,7 +10,6 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 class JsonRequestTransformerSubscriber implements EventSubscriberInterface
 {
-
     /**
      * Returns an array of event names this subscriber wants to listen to.
      *
@@ -34,7 +31,7 @@ class JsonRequestTransformerSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::REQUEST => 'onKernelRequest'
+            KernelEvents::REQUEST => 'onKernelRequest',
         ];
     }
 

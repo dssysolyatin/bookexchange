@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -12,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Book
 {
     /**
-     * Google book id
+     * Google book id.
      *
      * @ORM\Id()
      * @ORM\GeneratedValue(strategy="NONE")

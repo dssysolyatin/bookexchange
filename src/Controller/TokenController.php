@@ -1,9 +1,8 @@
 <?php
 
-
 namespace App\Controller;
 
-use App\User\Manager;
+use App\Manager\UserManager;
 use Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -24,8 +23,10 @@ class TokenController extends Controller
 {
     /**
      * @Route(path="/")
-     * @param UserInterface $user
+     *
+     * @param UserInterface            $user
      * @param JWTTokenManagerInterface $tokenManager
+     *
      * @return Response
      */
     public function token(Request $request, UserInterface $user, JWTTokenManagerInterface $tokenManager)
@@ -33,7 +34,6 @@ class TokenController extends Controller
         if (null === $user) {
             return new Response('', 403);
         }
-
 
         if ('bookex.ru' === $request->getHost()) {
             $cookieDomain = '.'.$request->getHost();
@@ -54,13 +54,14 @@ class TokenController extends Controller
 
     /**
      * @Route(path="/by_vk_token", methods={"POST"})
-     * @param Request $request
-     * @param Manager $userManager
+     *
+     * @param Request     $request
+     * @param UserManager $userManager
+     *
      * @return JsonResponse
      */
-    public function tokenByAccessToken(Request $request, Manager $userManager, JWTTokenManagerInterface $tokenManager)
+    public function tokenByAccessToken(Request $request, UserManager $userManager, JWTTokenManagerInterface $tokenManager)
     {
-
         $token = $request->request->get('token');
 
         if (null === $token) {
@@ -73,8 +74,8 @@ class TokenController extends Controller
                     'first_name',
                     'last_name',
                     'photo_medium',
-                    'domain'
-                ]
+                    'domain',
+                ],
             ]);
         } catch (VKApiException $e) {
             return new JsonResponse(['error' => 'Invalid token']);

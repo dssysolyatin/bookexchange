@@ -1,15 +1,13 @@
 <?php
 
-
-namespace App\User;
-
+namespace App\Manager;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 
-class Manager
+class UserManager
 {
     /**
      * @var EntityManager
@@ -22,7 +20,8 @@ class Manager
 
     /**
      * Manager constructor.
-     * @param EntityManager $em
+     *
+     * @param EntityManager  $em
      * @param UserRepository $userRepository
      */
     public function __construct(EntityManager $em, UserRepository $userRepository)
@@ -33,6 +32,7 @@ class Manager
 
     /**
      * @param UserResponseInterface $response
+     *
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
@@ -55,6 +55,7 @@ class Manager
 
     /**
      * @param $userId
+     *
      * @return mixed
      */
     public function get($userId)

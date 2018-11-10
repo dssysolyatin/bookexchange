@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Form\Type\Book;
-
 
 use App\DTO\Request\InsertBookCategoryDTO;
 use Symfony\Component\Form\AbstractType;
@@ -19,7 +17,6 @@ class InsertBookCategoryType extends AbstractType
             ->add('bookId', TextType::class, [
             ])
             ->add('categoryId', IntegerType::class, [
-
             ])
         ;
     }
