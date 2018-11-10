@@ -1,0 +1,19 @@
+<?php
+
+$finder = PhpCsFixer\Finder::create()
+    ->exclude('vendor')
+    ->exclude('docs')
+    ->exclude('ansible')
+    ->exclude('docker')
+    ->exclude('deploy')
+    ->exclude('var')
+    ->exclude('app')
+    ->in(__DIR__);
+
+return PhpCsFixer\Config::create()
+    ->setUsingCache(false)
+    ->setRules(array(
+        '@Symfony' => true,
+        '@PSR2' => true,
+        'phpdoc_indent' => false,
+    ))->setFinder($finder);
