@@ -43,6 +43,23 @@ class BookController extends ApiController
         );
     }
 
+    /**
+     * @Route("/free_book_search")
+     * @param Request $request
+     * @param BookRepository $bookRepository
+     * @return JsonResponse|void
+     */
+    public function freeBookSearch(Request $request, BookRepository $bookRepository, UserInterface $user)
+    {
+        $searchString = $request->query->get('q');
+
+        if (mb_strlen($searchString) < 3) {
+            return new JsonResponse([]);
+        }
+
+        return new JsonResponse($bookRepository->searchFreeBooks($searchString, $user->getId()));
+    }
+
 
     /**
      * @Route("", methods={"GET"})

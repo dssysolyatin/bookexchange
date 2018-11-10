@@ -46,7 +46,7 @@ class Manager
     public function __construct(
         \Google_Service_Books $gBookService,
         BookRepository $bookRepository,
-        ObjectNormalizer $objectNormalizer,
+        NormalizerInterface $objectNormalizer,
         EntityManager $em
     ) {
         $this->gBookService = $gBookService;
@@ -115,6 +115,9 @@ class Manager
         $booksList->totalItems = $volumes->getTotalItems();
 
         foreach ($volumes->getItems() as $volume) {
+            /**
+             * @var Google_Service_Books_Volume $volume
+             */
             $booksList->books[] = \App\DTO\Response\Book::createByVolume($volume);
         }
 

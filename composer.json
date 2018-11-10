@@ -9,6 +9,7 @@
         "hwi/oauth-bundle": "^0.6.3",
         "lexik/jwt-authentication-bundle": "^2.6",
         "nelmio/cors-bundle": "^1.5",
+        "patrickschur/language-detection": "^3.4",
         "php-http/guzzle6-adapter": "^1.1",
         "php-http/httplug-bundle": "^1.12",
         "symfony/console": "*",
