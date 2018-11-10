@@ -7,6 +7,7 @@ use App\DTO\Request\InsertBookCategoryDTO;
 use App\Exception\DuplicationUserCategoryBookException;
 use App\Exception\GoogleNotFoundBookException;
 use App\Form\Type\Book\InsertBookCategoryType;
+use App\Repository\BookRepository;
 use Google_Service_Books;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,6 +43,16 @@ class BookController extends ApiController
         );
     }
 
+
+    /**
+     * @Route("", methods={"GET"})
+     * @param UserInterface $user
+     */
+    public function index(UserInterface $user, BookRepository $bookRepository)
+    {
+        return new JsonResponse($bookRepository->getUserBooks($user->getId()));
+    }
+
     /**
      * @Route("/link", methods={"POST"})
      * @param Manager $bookManager
@@ -49,7 +60,7 @@ class BookController extends ApiController
      * @param ValidatorInterface $validator
      * @return Response
      */
-    public function create(Manager $bookManager, Request $request, UserInterface $user)
+    public function link(Manager $bookManager, Request $request, UserInterface $user)
     {
         $form = $this->createForm(InsertBookCategoryType::class, new InsertBookCategoryDTO());
 
