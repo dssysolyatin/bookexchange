@@ -61,12 +61,17 @@ class JWTEventSubscriber implements EventSubscriberInterface
     public function onJWTCreated(JWTCreatedEvent $event)
     {
         $token = $this->tokenStorage->getToken();
+        $user = $event->getUser();
+
+        if (null !== $user->getVkToken()) {
+            return $event->setData(array_merge($event->getData(), ['vk_token' => $user->getVkToken()]));
+        }
 
         if (!$token instanceof OAuthToken) {
             return;
         }
 
-        if ($event->getUser()->getId() !== $event->getData()['username']) {
+        if ($user->getId() !== $event->getData()['username']) {
             return;
         }
 
@@ -76,9 +81,10 @@ class JWTEventSubscriber implements EventSubscriberInterface
     public function onJWTAuthenticated(JWTAuthenticatedEvent $event)
     {
         $user = $event->getToken()->getUser();
+        $payload = $event->getPayload();
 
-        if (isset($event->getPayload()['vk_token'])) {
-            $user->setVkToken($event->getPayload()['vk_token']);
+        if (isset($payload['vk_token'])) {
+            $user->setVkToken($payload['vk_token']);
         }
     }
 }

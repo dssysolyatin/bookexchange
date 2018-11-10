@@ -3,9 +3,7 @@
 namespace App\Security;
 
 use App\Entity\User;
-use App\Repository\UserRepository;
 use App\User\Manager;
-use Doctrine\ORM\EntityManager;
 use HWI\Bundle\OAuthBundle\Connect\AccountConnectorInterface;
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\OAuthAwareUserProviderInterface;
@@ -37,7 +35,13 @@ class OAuthUserProvider implements UserProviderInterface, AccountConnectorInterf
 
     public function refreshUser(UserInterface $user)
     {
-        return $this->userManager->get($user->getId());
+        $user = $this->userManager->get($user->getId());
+
+        if (null === $user) {
+            throw new UsernameNotFoundException();
+        }
+
+        return $user;
     }
 
     public function supportsClass($class)
@@ -71,7 +75,7 @@ class OAuthUserProvider implements UserProviderInterface, AccountConnectorInterf
         $user = $this->userManager->get($data['id']);
 
         if (null === $user) {
-            return $this->userManager->createByVkData($response);
+            return $this->userManager->createByVkData($data);
         }
 
         return $user;

@@ -36,10 +36,8 @@ class Manager
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function createByVkData(UserResponseInterface $response)
+    public function createByVkData(array $data)
     {
-        $data = $response->getData()['response'][0];
-
         $user = (new User())
             ->setAvatarUrl($data['photo_medium'])
             ->setCreatedAt(new \DateTimeImmutable())

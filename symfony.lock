@@ -68,6 +68,24 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.0.0"
+    },
+    "google/apiclient": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "49c5d7a66d863d28513979bf0666dc77599100c0"
+        }
+    },
+    "google/apiclient-services": {
+        "version": "v0.74"
+    },
+    "google/auth": {
+        "version": "v1.4.0"
+    },
     "guzzlehttp/guzzle": {
         "version": "6.3.3"
     },
@@ -100,6 +118,9 @@
             "version": "2.5",
             "ref": "509b1542f3180a1cfe248ade8b7bf5092c2d4127"
         }
+    },
+    "monolog/monolog": {
+        "version": "1.24.0"
     },
     "namshi/jose": {
         "version": "7.2.3"
@@ -151,6 +172,9 @@
     },
     "php-http/stopwatch-plugin": {
         "version": "1.1.0"
+    },
+    "phpseclib/phpseclib": {
+        "version": "2.0.12"
     },
     "psr/cache": {
         "version": "1.0.1"

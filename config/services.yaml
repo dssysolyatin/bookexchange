@@ -26,21 +26,29 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    Google_Client:
+        class: Google_Client
+        calls:
+            - method: setDeveloperKey
+              arguments:
+                - "%env(GOOGLE_API_KEY)%"
+
+    Google_Service_Books:
+        class: Google_Service_Books
+
     app.repository.user:
         class: App\Repository\UserRepository
         arguments:
             - "@doctrine"
 
-    app.user.manager:
-        class: App\User\Manager
+    App\User\Manager:
         arguments:
             - "@doctrine.orm.entity_manager"
             - "@app.repository.user"
 
     app.oauth_aware.user_provider.service:
         class: App\Security\OAuthUserProvider
-        arguments:
-            - "@app.user.manager"
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
