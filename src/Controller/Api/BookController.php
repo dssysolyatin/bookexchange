@@ -43,7 +43,7 @@ class BookController extends ApiController
     }
 
     /**
-     * @Route("", methods={"POST"})
+     * @Route("/link", methods={"POST"})
      * @param Manager $bookManager
      * @param Request $request
      * @param ValidatorInterface $validator
