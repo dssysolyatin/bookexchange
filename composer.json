@@ -12,10 +12,12 @@
         "php-http/httplug-bundle": "^1.12",
         "symfony/console": "*",
         "symfony/flex": "^1.1",
+        "symfony/form": "*",
         "symfony/framework-bundle": "*",
         "symfony/orm-pack": "^1.0",
         "symfony/serializer": "*",
         "symfony/twig-bundle": "*",
+        "symfony/validator": "*",
         "symfony/var-dumper": "*",
         "symfony/yaml": "*",
         "vkcom/vk-php-sdk": "^5.80"

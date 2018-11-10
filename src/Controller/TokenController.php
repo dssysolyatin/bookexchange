@@ -28,16 +28,25 @@ class TokenController extends Controller
      * @param JWTTokenManagerInterface $tokenManager
      * @return Response
      */
-    public function token(UserInterface $user, JWTTokenManagerInterface $tokenManager)
+    public function token(Request $request, UserInterface $user, JWTTokenManagerInterface $tokenManager)
     {
         if (null === $user) {
             return new Response('', 403);
         }
 
-        $response = new RedirectResponse('/');
+
+        if ('bookex.ru' === $request->getHost()) {
+            $cookieDomain = '.'.$request->getHost();
+            $redirect = 'http://app.bookex.ru';
+        } else {
+            $cookieDomain = null;
+            $redirect = null;
+        }
+
+        $response = new RedirectResponse($redirect);
 
         $response->headers->setCookie(
-            new Cookie('token', $tokenManager->create($user), 0, '/', null, false, false)
+            new Cookie('token', $tokenManager->create($user), 0, '/', $cookieDomain, false, false)
         );
 
         return $response;
