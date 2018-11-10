@@ -7,6 +7,7 @@
         "ext-iconv": "*",
         "google/apiclient": "^2.2",
         "hwi/oauth-bundle": "^0.6.3",
+        "jasny/php-functions": "^4.1",
         "lexik/jwt-authentication-bundle": "^2.6",
         "nelmio/cors-bundle": "^1.5",
         "patrickschur/language-detection": "^3.4",

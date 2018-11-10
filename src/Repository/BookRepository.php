@@ -5,6 +5,7 @@ namespace App\Repository;
 
 use App\BestLanguageDetector;
 use App\Entity\Book;
+use App\Func;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -35,9 +36,7 @@ class BookRepository extends ServiceEntityRepository
             [\PDO::PARAM_INT]
         )->fetchAll();
 
-        /**
-         * @todo extract to serializer
-         */
+
         $booksResult = [];
         foreach ($books as $book) {
             $booksResult[] =  array_merge(json_decode($book['info'], true), [
@@ -83,5 +82,4 @@ class BookRepository extends ServiceEntityRepository
         return $booksResult;
 
     }
-
 }

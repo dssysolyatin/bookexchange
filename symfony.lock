@@ -104,6 +104,9 @@
             "ref": "20cacc9b2da49d96ea55c8a8dd31324c5be88bc9"
         }
     },
+    "jasny/php-functions": {
+        "version": "v4.1.0"
+    },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },

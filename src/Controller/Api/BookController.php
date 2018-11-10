@@ -8,12 +8,14 @@ use App\Exception\DuplicationUserCategoryBookException;
 use App\Exception\GoogleNotFoundBookException;
 use App\Form\Type\Book\InsertBookCategoryType;
 use App\Repository\BookRepository;
+use App\Repository\UserRepository;
 use Google_Service_Books;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
@@ -40,6 +42,24 @@ class BookController extends ApiController
                 'maxResults' => 20,
                 'startIndex' => $request->query->get('start_index', 0)
             ])
+        );
+    }
+
+    /**
+     * @Route("/{bookId}/users")
+     * @param string $bookId
+     * @param UserRepository $userRepository
+     * @param SerializerInterface $serializer
+     * @return JsonResponse|void
+     * @throws \Doctrine\DBAL\DBALException
+     */
+    public function freeBookUsers(string $bookId, UserRepository $userRepository, SerializerInterface $serializer)
+    {
+        return new JsonResponse(
+            $serializer->serialize($userRepository->getUsersByBook($bookId), 'json'),
+            200,
+            [],
+            true
         );
     }
 

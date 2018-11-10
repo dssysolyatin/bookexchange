@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6dfa1f4e9c0eed7819f88a165fdeac9c",
+    "content-hash": "cb3b5b4e7f7ae2be13cfaf89c06b4d84",
     "packages": [
         {
             "name": "clue/stream-filter",
@@ -1752,6 +1752,53 @@
                 "youtube"
             ],
             "time": "2018-07-31T10:19:28+00:00"
+        },
+        {
+            "name": "jasny/php-functions",
+            "version": "v4.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasny/php-functions.git",
+                "reference": "32d0d90e0a9e3dc81b614f5e4a7b70eb8f5e6a2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasny/php-functions/zipball/32d0d90e0a9e3dc81b614f5e4a7b70eb8f5e6a2d",
+                "reference": "32d0d90e0a9e3dc81b614f5e4a7b70eb8f5e6a2d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "jasny/php-code-quality": "^2.2"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/array_functions.php",
+                    "src/case_functions.php",
+                    "src/file_functions.php",
+                    "src/func_functions.php",
+                    "src/object_functions.php",
+                    "src/server_functions.php",
+                    "src/string_functions.php",
+                    "src/type_functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arnold Daniels",
+                    "email": "arnold@jasny.net",
+                    "homepage": "http://www.jasny.net"
+                }
+            ],
+            "description": "A set of useful PHP functions",
+            "time": "2018-09-21T07:23:26+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
